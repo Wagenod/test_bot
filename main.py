@@ -16,8 +16,11 @@ logging.basicConfig(level=logging.INFO)
 async def cmd_test1(message: types.Message):
     options = webdriver.ChromeOptions()
     options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-gpu")
+
     driver = webdriver.Chrome(options=options)
-    driver.get("https://hashdork.com/ru/best-heroku-alternatives/")
+    driver.get("https://www.google.com")
     await message.reply(driver.title)
 
 if __name__ == "__main__":
