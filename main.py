@@ -7,6 +7,7 @@ import os
 
 load_dotenv()
 
+
 # Объект бота
 bot = Bot(token=os.environ.get("TOKEN"))
 # Диспетчер для бота
