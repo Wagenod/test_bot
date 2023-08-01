@@ -1,1 +1,1 @@
-test_bot: python3 main.py
+test_bot: ls
