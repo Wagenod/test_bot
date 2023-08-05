@@ -10,7 +10,6 @@ from db_context_manager import Database
 
 load_dotenv()
 
-#bot = Bot(token=os.environ.get("BOT_TOKEN"), proxy=os.environ.get("PROXY_URL"))
 bot = Bot(token=os.environ.get("BOT_TOKEN"))
 dp = Dispatcher(bot)
 logging.basicConfig(level=logging.INFO)
@@ -19,14 +18,7 @@ options = webdriver.ChromeOptions()
 options.add_argument("--headless")
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-gpu")
-# try:
-#   service = Service(ChromeDriverManager().install())
-# except ValueError as error:
-#   service = Service(executable_path="chromedriver.exe")
-
-service = Service(executable_path="chromedriver")
-
-driver = webdriver.Chrome(service=service, options=options)
+driver = webdriver.Chrome(service=Service(executable_path="chromedriver"), options=options)
 
 
 @dp.message_handler(commands="test1")
