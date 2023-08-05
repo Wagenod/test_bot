@@ -19,20 +19,26 @@ options = webdriver.ChromeOptions()
 options.add_argument("--headless")
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-gpu")
-try:
-    service = Service(ChromeDriverManager().install())
-except ValueError as error:
-    service = Service(executable_path="chromedriver.exe")
+# try:
+#   service = Service(ChromeDriverManager().install())
+# except ValueError as error:
+#   service = Service(executable_path="chromedriver.exe")
+
+service = Service(executable_path="chromedriver")
 
 driver = webdriver.Chrome(service=service, options=options)
 
+
 @dp.message_handler(commands="test1")
 async def cmd_test1(message: types.Message):
-    driver.get("https://www.google.com")
-    with Database() as db:
-        n_records = db.execute("select count(*) from AUTHOR;").fetchone()[0]
-        db.execute(f"insert into AUTHOR(FIO, AGE) values('', {random.randint(20, 100)});")
-    await message.reply(f"driver title = {driver.title} \n total records in DB = {n_records}")
+  driver.get("https://habr.com/ru/articles/709314/")
+  with Database() as db:
+    n_records = db.execute("select count(*) from AUTHOR;").fetchone()[0]
+    db.execute(
+      f"insert into AUTHOR(FIO, AGE) values('', {random.randint(20, 100)});")
+  await message.reply(
+    f"driver title = {driver.title} \n total records in DB = {n_records}")
+
 
 if __name__ == "__main__":
-    executor.start_polling(dp, skip_updates=True)
+  executor.start_polling(dp, skip_updates=True)
